@@ -8,7 +8,7 @@ contract CrowdFunding {
     uint public fundingGoal;
     uint public raisedAmount;
 
-    event Deposit(address _address, uint _amount, uint _time)
+    event Deposit(address _address, uint _amount, uint _time);
 
     constructor(uint _timeline, uint _fundingGoal) {
         timeline = block.timestamp + _timeline;
