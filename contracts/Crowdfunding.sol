@@ -8,6 +8,8 @@ contract CrowdFunding {
     uint public fundingGoal;
     uint public raisedAmount;
 
+    event Deposit(address _address, uint _amount, uint _time)
+
     constructor(uint _timeline, uint _fundingGoal) {
         timeline = block.timestamp + _timeline;
         fundingGoal = _fundingGoal;
@@ -47,6 +49,7 @@ contract CrowdFunding {
 
     function sendFunds() public payable _checkTimeline {
         require(msg.value > 0, "Amount cannot be 0");
+        emit Deposit(msg.sender, msg.value, block.timestamp);
         contributors[msg.sender] += msg.value;
         raisedAmount += msg.value;
     }
