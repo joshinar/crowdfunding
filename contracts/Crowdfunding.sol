@@ -9,6 +9,7 @@ contract CrowdFunding {
     uint public raisedAmount;
 
     event Deposit(address _address, uint _amount, uint _time);
+    event Refund(address _address, uint _amount, uint _time);
 
     constructor(uint _timeline, uint _fundingGoal) {
         timeline = block.timestamp + _timeline;
@@ -58,6 +59,7 @@ contract CrowdFunding {
         require(checkUserBalance(msg.sender), "Not enough Balance");
         (bool success, ) = msg.sender.call{value: contributors[msg.sender]}("");
         require(success, "Failed to issue refund");
+        emit Refund(msg.sender, contributors[msg.sender], block.timestamp);
         contributors[msg.sender] = 0;
     }
 
